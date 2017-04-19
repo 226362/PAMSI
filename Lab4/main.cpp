@@ -1,16 +1,21 @@
 #include <iostream>
 #include <cstdio>
 #include <ctime>
+#include <cstdlib>
 #include "tablica.hh"
-#define ROZMIAR 10
+#include "stoper.hh"
+#define ROZMIAR 100000
 #define MAX 1000000
 
 using namespace std;
 
 
 int podziel(Tablica &tablica, int poczatek, int koniec) {
-  int bufor;
-  int temp = tablica.wartosc(poczatek);
+  int bufor, pivot;
+  //pivot = poczatek;
+  pivot = koniec-1;
+  //pivot = (poczatek+koniec)/2;
+  int temp = tablica.wartosc(pivot);
   int i = poczatek;
   int j = koniec;
   while(1) {
@@ -20,8 +25,34 @@ int podziel(Tablica &tablica, int poczatek, int koniec) {
       i++;
     if(i<j) {
       bufor = tablica.wartosc(i);
-      tablica.przypisz(i,tablica.wartosc(j));
-      tablica.przypisz(j, bufor);
+      tablica.przypisz1(i,tablica.wartosc(j));
+      tablica.przypisz1(j, bufor);
+      i++;
+      j--;
+    }
+    else
+      return j;
+  }
+  
+}
+
+int podziel_odwrotnie(Tablica &tablica, int poczatek, int koniec) {
+  int bufor, pivot;
+  //pivot = poczatek;
+  //pivot = koniec-1;
+  pivot = (poczatek+koniec)/2;
+  int temp = tablica.wartosc(pivot);
+  int i = poczatek;
+  int j = koniec;
+  while(1) {
+    while (tablica.wartosc(j)<temp)
+      j--;
+    while (tablica.wartosc(i)>temp)
+      i++;
+    if(i<j) {
+      bufor = tablica.wartosc(i);
+      tablica.przypisz1(i,tablica.wartosc(j));
+      tablica.przypisz1(j, bufor);
       i++;
       j--;
     }
@@ -40,26 +71,28 @@ void quicksort(Tablica &tablica, int poczatek, int koniec) {
   }
 }
 
+void quicksort_odwrotnie(Tablica &tablica, int poczatek, int koniec) {
+  int srodek;
+  if (poczatek<koniec) {
+    srodek = podziel_odwrotnie(tablica, poczatek, koniec);
+    quicksort_odwrotnie(tablica, poczatek, srodek);
+    quicksort_odwrotnie(tablica, srodek+1, koniec);
+  }
+}
+
 int main() {
-  //clock_t start, stop;
-  //double czas;
+  Stoper stoper;
+  srand (time(NULL));
   Tablica tablica(1);
   int wartosc;
-  
   for(int i=0; i<ROZMIAR; i++) {
-    cout << "Wpisz liczbe: ";
-    cin >> wartosc;
-    cout << endl;
+    wartosc = (rand()%100000);
     tablica.przypisz(i,wartosc);
   }
-  cout << endl;
-  cout << "Podano następujace liczby: \n";
-  for(int i=0; i<ROZMIAR; i++) {
-    cout << tablica.wartosc(i) << " ";
-  }
+  //quicksort_odwrotnie(tablica, 0, ROZMIAR-1);
   cout << "\n\nQUICKSORT: \n";
+  stoper.start();
   quicksort(tablica, 0, ROZMIAR-1);
-  for(int i=0; i<ROZMIAR; i++) {
-    cout << tablica.wartosc(i) << " ";
-  }
+  stoper.stop();
+  cout << "\nCzas obliczen: " << stoper.czas() <<"\n\n\n";
 }

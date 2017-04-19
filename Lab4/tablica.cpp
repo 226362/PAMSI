@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstdio>
 #include "tablica.hh"
-#define TRYB 0  //powiekszanie o 1
-//#define TRYB 1  //powiekszanie x2
+//#define TRYB 0  //powiekszanie o 1
+#define TRYB 1  //powiekszanie x2
 
 using namespace std;
 
@@ -45,6 +45,10 @@ void Tablica::przypisz(int pozycja, int wartosc) {
     _wypelnienie++;
   }
   
+}
+
+void Tablica::przypisz1(int pozycja, int wartosc) {
+    _Tablica[pozycja] = wartosc; 
 }
 
 
