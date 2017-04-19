@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include "tablica.hh"
 #include "stoper.hh"
-#define ROZMIAR 100000
+#define ROZMIAR 1000
 #define MAX 1000000
 
 using namespace std;
