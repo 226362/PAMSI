@@ -7,12 +7,12 @@ int Element::getValue() {
 }
 
 
-Element Element::getNext() {
+Element* Element::getNext() {
   return next;
 }
 
 
-Element Element::getPrev() {
+Element* Element::getPrev() {
   return prev;
 }
 
@@ -21,10 +21,10 @@ void Element::setValue(int newValue) {
   value = newValue;
 }
 
-void Element::setNext(Element newElement) {
-  next = &newElement;
+void Element::setNext(Element* newElement) {
+  next = newElement;
 }
 
-void Element::setPrev(Element newElement) {
-  prev = &newElement;
+void Element::setPrev(Element* newElement) {
+  prev = newElement;
 }

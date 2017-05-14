@@ -1,4 +1,4 @@
-#include "Lista.hh"
+#include "Kolejka.hh"
 #include "Element.hh"
 #include "stoper.hh"
 #include <iostream>
@@ -8,14 +8,13 @@
 
 using namespace std;
 
-Lista::Lista() {
+Kolejka::Kolejka() {
   head = NULL;
-  tail = NULL;
   rozmiar = 0;
 }
 
 
-Lista::~Lista() {
+Kolejka::~Kolejka() {
   Element* temp;
   while (head) {
     temp = head->getNext();
@@ -25,24 +24,25 @@ Lista::~Lista() {
   rozmiar = 0;
 }
 
-void Lista::add(int value) {
+
+void Kolejka::add(int value) {
   Element* nowy = new Element();
-  nowy->setValue(value);
-  if(head==NULL) {
+  if (head==NULL) {
     head = nowy;
     tail = nowy;
     nowy->setNext(NULL);
   }
   else {
-    Element* temp = head;
-    head=nowy;
-    nowy->setNext(temp);
+    Element* temp = tail;
+    temp->setNext(nowy);
+    nowy->setNext(NULL);
+    tail=nowy;
   }
   rozmiar++;
 }
 
 
-Element* Lista::get() {
+Element* Kolejka::get() {
   Element* temp;
   temp = head;
   if(temp) {
@@ -53,23 +53,28 @@ Element* Lista::get() {
   return NULL;
 }
 
-int Lista::size() {
+
+int Kolejka::size() {
   return rozmiar;
 }
 
 
-Element* Lista::find(int szukana) {
+Element* Kolejka::find(int szukana) {
   Element* temp = head;
   while(temp) {
-    if (temp->getValue() == szukana)
+    if(temp->getValue() == szukana)
       return temp;
-    else
-      temp = temp->getNext();
+    else {
+      temp = this->get();
+      delete temp;
+      temp = head;
+    }
   }
-  return NULL;
+    return NULL;
 }
 
-void Lista::wykonajObliczenia(int Rozmiar, double& wynik) {
+
+void Kolejka::wykonajObliczenia(int Rozmiar, double& wynik) {
   Stoper stoper;
   srand(time(NULL));
   for (int i=0; i<Rozmiar; i++) {
@@ -81,12 +86,14 @@ void Lista::wykonajObliczenia(int Rozmiar, double& wynik) {
   stoper.stop();
   wynik = stoper.czas();
 }
-void Lista::resetuj(int Rozmiar) {
+
+
+void Kolejka::resetuj(int Rozmiar) {
   Element* temp = NULL;
-  while(head) {
+  while (head) {
     temp=this->get();
     delete temp;
   }
 }
-
+  
 

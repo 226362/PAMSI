@@ -1,4 +1,4 @@
-#include "Lista.hh"
+#include "Stos.hh"
 #include "Element.hh"
 #include "stoper.hh"
 #include <iostream>
@@ -8,14 +8,13 @@
 
 using namespace std;
 
-Lista::Lista() {
+Stos::Stos() {
   head = NULL;
-  tail = NULL;
   rozmiar = 0;
 }
 
 
-Lista::~Lista() {
+Stos::~Stos() {
   Element* temp;
   while (head) {
     temp = head->getNext();
@@ -25,12 +24,11 @@ Lista::~Lista() {
   rozmiar = 0;
 }
 
-void Lista::add(int value) {
+
+void Stos::add(int value) {
   Element* nowy = new Element();
-  nowy->setValue(value);
-  if(head==NULL) {
+  if (head==NULL) {
     head = nowy;
-    tail = nowy;
     nowy->setNext(NULL);
   }
   else {
@@ -42,7 +40,7 @@ void Lista::add(int value) {
 }
 
 
-Element* Lista::get() {
+Element* Stos::get() {
   Element* temp;
   temp = head;
   if(temp) {
@@ -53,23 +51,28 @@ Element* Lista::get() {
   return NULL;
 }
 
-int Lista::size() {
+
+int Stos::size() {
   return rozmiar;
 }
 
 
-Element* Lista::find(int szukana) {
+Element* Stos::find(int szukana) {
   Element* temp = head;
   while(temp) {
-    if (temp->getValue() == szukana)
+    if(temp->getValue() == szukana)
       return temp;
-    else
-      temp = temp->getNext();
+    else {
+      temp = this->get();
+      delete temp;
+      temp = head;
+    }
   }
-  return NULL;
+    return NULL;
 }
 
-void Lista::wykonajObliczenia(int Rozmiar, double& wynik) {
+
+void Stos::wykonajObliczenia(int Rozmiar, double& wynik) {
   Stoper stoper;
   srand(time(NULL));
   for (int i=0; i<Rozmiar; i++) {
@@ -81,12 +84,14 @@ void Lista::wykonajObliczenia(int Rozmiar, double& wynik) {
   stoper.stop();
   wynik = stoper.czas();
 }
-void Lista::resetuj(int Rozmiar) {
+
+
+void Stos::resetuj(int Rozmiar) {
   Element* temp = NULL;
-  while(head) {
+  while (head) {
     temp=this->get();
     delete temp;
   }
 }
-
+  
 
