@@ -1,0 +1,41 @@
+#include "Element.hh"
+#include <iostream>
+
+Element::Element() {
+  value = 0;
+  right = NULL;
+  left = NULL;
+  parent = NULL;
+}
+
+int getValue() {
+  return value;
+}
+
+Element* getRight(){
+  return right;
+}
+
+Element* getLeft(){
+  return left;
+}
+
+Element* getParent(){
+  return parent;
+}
+
+void setValue(int wartosc){
+  value = wartosc;
+}
+
+void setRight(Element* wartosc){
+  right = wartosc;
+}
+
+void setLeft(Element* wartosc){
+  left = wartosc;
+}
+
+void setParent(Element* wartosc){
+  parent = wartosc;
+}

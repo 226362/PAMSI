@@ -1,0 +1,36 @@
+#include "ElementDrzewa.hh"
+#include <iostream>
+
+
+int ElementDrzewa::getValue() {
+  return value;
+}
+
+ElementDrzewa* ElementDrzewa::getRight() {
+  return right;
+}
+
+ElementDrzewa* ElementDrzewa::getLeft() {
+  return left;
+}
+
+ElementDrzewa* ElementDrzewa::getParent() {
+  return parent;
+}
+
+void ElementDrzewa::setValue(int wartosc) {
+  value = wartosc;
+}
+
+void ElementDrzewa::setRight(ElementDrzewa* wartosc) {
+  right = wartosc;
+}
+
+void ElementDrzewa::setLeft(ElementDrzewa* wartosc) {
+  left = wartosc;
+}
+
+void ElementDrzewa::setParent(ElementDrzewa* wartosc) {
+  parent = wartosc;
+}
+
