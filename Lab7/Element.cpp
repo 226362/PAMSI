@@ -6,6 +6,7 @@ Element::Element() {
   right = NULL;
   left = NULL;
   parent = NULL;
+  color = 'a';
 }
 
 int Element::getValue() {
@@ -24,6 +25,10 @@ Element* Element::getParent(){
   return parent;
 }
 
+char Element::getColor(){
+  return color;
+}
+
 void Element::setValue(int wartosc){
   value = wartosc;
 }
@@ -38,5 +43,9 @@ void Element::setLeft(Element* wartosc){
 
 void Element::setParent(Element* wartosc){
   parent = wartosc;
+}
+
+void Element::setColor(char kolor){
+  color = kolor;
 }
 

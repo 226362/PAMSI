@@ -6,6 +6,7 @@ class Element {
   Element* left;
   Element* right;
   Element* parent;
+  char color;
   friend class Drzewo;
 
 public:
@@ -14,8 +15,10 @@ public:
   Element* getRight();
   Element* getLeft();
   Element* getParent();
+  char getColor();
   void setValue(int);
   void setRight(Element*);
   void setLeft(Element*);
   void setParent(Element*);
+  void setColor(char);
 };
